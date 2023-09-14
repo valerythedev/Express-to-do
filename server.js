@@ -3,7 +3,7 @@ const app = express()
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
 
-// var db, collection;
+var db, collection;
 
 const url = "mongodb+srv://valgonzr:ennIuqqxuHx0NikV@demon.5xoynxc.mongodb.net/?retryWrites=true&w=majority"
 const dbName = "PPE"
