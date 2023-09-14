@@ -3,7 +3,7 @@ const app = express()
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
 
-var db, collection;
+// var db, collection;
 
 const url = "mongodb+srv://valgonzr:ennIuqqxuHx0NikV@demon.5xoynxc.mongodb.net/?retryWrites=true&w=majority"
 const dbName = "PPE"
@@ -25,11 +25,41 @@ app.use(express.static('public'))
 // read, and displays
 // .find give me everything
 app.get('/', (req, res) => {
-  db.collection('items').find().toArray((err, result) => {
-    if (err) return console.log(err)
-    res.render('index.ejs', { list: result })
-  })
-})
+  console.log('Route handler for / called'); // Log to indicate that the route handler is being executed
+  
+  if (db) {
+    console.log('db object is defined'); // Log to check if db object is defined
+    console.log('Attempting to access db.collection(\'items\')');
+
+    // Check if the 'collection' property is defined in the db object
+    if (db.collection) {
+      console.log('db.collection is defined');
+      db.collection('items').find().toArray((err, result) => {
+        if (err) {
+          console.error('Error querying the database:', err); // Log any errors during the query
+          res.status(500).send('Database query error');
+        } else {
+          console.log('Query successful');
+          res.render('index.ejs', { list: result });
+        }
+      });
+    } else {
+      console.error('db.collection is not defined'); // Log if 'collection' property is not defined
+      res.status(500).send('Database collection error');
+    }
+  } else {
+    console.error('db is not defined'); // Log if db object is not defined
+    res.status(500).send('Database connection error');
+  }
+});
+
+// app.get('/', (req, res) => {
+//   db.collection('items').find().toArray((err, result) => {
+//     if (err) return console.log(err)
+//     res.render('index.ejs', { list: result })
+//   })
+// })
+
 // when someone makes a post req this would run
 // my routes live on the server. 
 // post adding new data. we don't know where 
