@@ -2,11 +2,14 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
+const dotenv = require('dotenv')
 
-var db, collection;
 
-const url = "mongodb+srv://valgonzr:ennIuqqxuHx0NikV@demon.5xoynxc.mongodb.net/?retryWrites=true&w=majority"
+dotenv.config();
+const url = process.env.MONGO
+
 const dbName = "PPE"
+var db, collection;
 
 app.listen(3200, () => {
   MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (error, client) => {
@@ -22,11 +25,12 @@ app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(express.static('public'))
+
 // read, and displays
 // .find give me everything
 app.get('/', (req, res) => {
   console.log('Route handler for / called'); // Log to indicate that the route handler is being executed
-  
+
   if (db) {
     console.log('db object is defined'); // Log to check if db object is defined
     console.log('Attempting to access db.collection(\'items\')');
@@ -53,32 +57,12 @@ app.get('/', (req, res) => {
   }
 });
 
-// app.get('/', (req, res) => {
-//   db.collection('items').find().toArray((err, result) => {
-//     if (err) return console.log(err)
-//     res.render('index.ejs', { list: result })
-//   })
-// })
 
-// when someone makes a post req this would run
-// my routes live on the server. 
-// post adding new data. we don't know where 
-// app.post('/items', (req, res) => {
-//   db.collection('items').insertOne({
-//     things: req.body.things,
-//     dueDate: req.body.dueDate,
-  
-//   }, (err, result) => {
-//     if (err) return console.log(err)
-//     console.log('saved to database')
-//     res.redirect('/')
-//   })
-// })
 app.post('/items', (req, res) => {
   db.collection('items').insertOne({
     things: req.body.things,
     dueDate: req.body.dueDate,
-  
+
   }, (err, result) => {
     if (err) return console.log(err)
     console.log('saved to database')
@@ -89,26 +73,22 @@ app.post('/items', (req, res) => {
 // update
 app.put('/items', (req, res) => {
   db.collection('items')
-    .findOneAndUpdate({ 
-      things: req.body.things, 
-      dueDate: req.body.dueDate }
-    , {
-    //   $set: {
-    //     count: req.body.count + 1
-    //   }
-    // }, {
-      // sort: { _id: -1 },
-      upsert: true
-    }, (err, result) => {
-      if (err) return res.send(err)
-      res.send(result)
-    })
+    .findOneAndUpdate({
+      things: req.body.things,
+      dueDate: req.body.dueDate
+    }
+      , {
+        upsert: true
+      }, (err, result) => {
+        if (err) return res.send(err)
+        res.send(result)
+      })
 })
 
 app.delete('/items', (req, res) => {
   db.collection('items').remove(
-     (err, result) => {
-    if (err) return res.send(500, err)
-    res.send('Message deleted!')
-  })
+    (err, result) => {
+      if (err) return res.send(500, err)
+      res.send('Message deleted!')
+    })
 })
