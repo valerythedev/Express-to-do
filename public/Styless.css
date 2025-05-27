@@ -61,7 +61,7 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background: #4CAF50;
+  background: #669768;
   color: white;
   transition: background 0.3s;
 }
@@ -105,7 +105,7 @@ span {
   margin: 2rem auto 0;
   font-size: 2rem;
   padding: 1rem 2rem;
-  background: #f44336;
+  background: #a3504a;
   color: white;
   border-radius: 8px;
   transition: background 0.3s;
