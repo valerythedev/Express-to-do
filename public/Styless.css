@@ -1,0 +1,149 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Indie Flower', cursive;
+  background: rgb(238, 231, 217);
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* Container (optional if used) */
+.container {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  padding: 2rem;
+  background: rgb(238, 231, 217);
+  border: 1px solid green;
+  border-radius: 10px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 3rem;
+  text-decoration: underline;
+  margin-bottom: 2rem;
+}
+
+/* Form styles */
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+input[type="text"],
+input[type="date"] {
+  border: none;
+  border-bottom: 1px solid black;
+  font-size: 2rem;
+  padding: 0.5rem;
+  text-align: center;
+  background: transparent;
+}
+
+button {
+  font-size: 2rem;
+  padding: 0.8rem 1.6rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #4CAF50;
+  color: white;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #45a049;
+}
+
+ul#todo-list {
+  width: 100%;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+  font-size: 2rem;
+  background: #fff;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.listaLista {
+  text-decoration: line-through;
+}
+
+span {
+  flex: 1 1 40%;
+  margin-left: 1rem;
+  font-size: 2rem;
+  word-break: break-word;
+}
+
+.exec, #removeDone {
+  display: block;
+  margin: 2rem auto 0;
+  font-size: 2rem;
+  padding: 1rem 2rem;
+  background: #f44336;
+  color: white;
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+
+.exec:hover, #removeDone:hover {
+  background: #c62828;
+}
+
+.vacio {
+  text-align: center;
+  font-size: 2rem;
+  margin: 3rem 0;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Responsive adjustments */
+@media (min-width: 600px) {
+  form {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  input[type="text"],
+  input[type="date"] {
+    flex: 1;
+    margin: 0;
+  }
+
+  button {
+    width: auto;
+  }
+
+  span {
+    flex: 1;
+    margin-left: 0;
+  }
+}
