@@ -1,45 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8">
-  <title>To Do List</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Lista de Tareas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Sono:wght@300;500&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="Styless.css">
 </head>
 
 <body>
-  <!-- <section class="container"> -->
-  <h1>To Do List</h1>
+  <div class="container">
+    <div class="header">
+      <h1>Mis Tareas</h1>
+      <div class="user-info">
+        <span><%= username %></span>
+        <form action="/logout" method="POST" style="display: inline;">
+          <button type="submit" class="logout-btn">Salir</button>
+        </form>
+      </div>
+    </div>
 
-  <form id= "todo-form">
-    <input type="text" placeholder="What you gotta do?" name="things" id="todo-input">
-    <input type="date" placeholder="When is it Due?" name="dueDate" id="todo-date">
-    <button>+</button>
-  </form>
-  <ul id= "todo-list"class="list">
-    <% for(let i=0; i<list.length; i++) {%>
-      <li class="message">
-       
-        <span>
-          <%= list[i].things %>
-        </span>
-        <span>
-          <%= list[i].dueDate %>
-        </span>
-        
-        <button class="checked">✔</button> 
-      </li>
-      <% } %>
-  </ul>
-  <button class="exec" id="borra">Clear</button>
-  <!-- </section> -->
+    <form id="todo-form">
+      <div class="form-group">
+        <input 
+          type="text" 
+          placeholder="¿Qué necesitas hacer?" 
+          name="things" 
+          id="todo-input"
+          autocomplete="off"
+          required
+        >
+        <input 
+          type="date" 
+          name="dueDate" 
+          id="todo-date"
+        >
+      </div>
+      <button type="submit">Agregar Tarea</button>
+    </form>
+
+    <% if (list.length > 0) { %>
+      <ul id="todo-list" class="list">
+        <% for(let i=0; i<list.length; i++) {%>
+          <li class="message" data-id="<%= list[i]._id %>">
+            <span class="task-text"><%= list[i].things %></span>
+            <span class="task-date"><%= list[i].dueDate ? list[i].dueDate : 'Sin fecha' %></span>
+            <button class="checked" aria-label="Marcar como completada">✓</button> 
+          </li>
+        <% } %>
+      </ul>
+      <button class="exec" id="borra">Eliminar Todas</button>
+    <% } else { %>
+      <div class="empty-state">
+        <p>No tienes tareas pendientes</p>
+        <p>Agrega una tarea para comenzar</p>
+      </div>
+    <% } %>
+  </div>
+
+  <!-- Modal de confirmación -->
+  <div id="confirm-modal" class="modal">
+    <div class="modal-content">
+      <p>¿Estás seguro de que quieres eliminar todas las tareas?</p>
+      <div class="modal-buttons">
+        <button id="confirm-yes" class="modal-btn confirm-btn">Sí, eliminar</button>
+        <button id="confirm-no" class="modal-btn cancel-btn">Cancelar</button>
+      </div>
+    </div>
+  </div>
   
   <script src="main.js"></script>
-
 </body>
 
 </html>

@@ -4,18 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run start server.js",
+    "start": "node server.js",
     "savage": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "assert": "^1.4.1",
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.14.2",
     "bson": ">=1.0.5",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.8",
     "express": "^4.13.3",
+    "express-session": "^1.18.2",
     "mongodb": "^3.3.4"
   },
   "devDependencies": {

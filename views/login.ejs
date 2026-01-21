@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sesión - To Do List</title>
+  <link rel="stylesheet" href="Styless.css">
+</head>
+
+<body>
+  <div class="auth-container">
+    <div class="auth-form">
+      <h1>Iniciar Sesión</h1>
+      
+      <% if (error) { %>
+        <div class="error-message"><%= error %></div>
+      <% } %>
+
+      <div class="demo-credentials">
+        <p>To demo or to try this, log in with this:</p>
+        <div class="credentials-box">
+          <div class="credential-item">
+            <strong>User:</strong> <code><%= demoEmail %></code>
+          </div>
+          <div class="credential-item">
+            <strong>Password:</strong> <code><%= demoPassword %></code>
+          </div>
+        </div>
+      </div>
+
+      <form action="/login" method="POST">
+        <div class="form-group">
+          <input 
+            type="text" 
+            name="username" 
+            placeholder="Usuario o Email" 
+            required
+            autocomplete="username"
+          >
+        </div>
+        <div class="form-group">
+          <input 
+            type="password" 
+            name="password" 
+            placeholder="Contraseña" 
+            required
+            autocomplete="current-password"
+          >
+        </div>
+        <button type="submit">Iniciar Sesión</button>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>
